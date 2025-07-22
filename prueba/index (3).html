@@ -1,29 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
   <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Waffles app</title>
-  <link rel="stylesheet" href="css/stile2.css">
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waffles app</title>
+    <link rel="stylesheet" href="css/stile2.css">
+  </head>
   <style>
-    body { font-family: Arial; padding: 20px; }
-    .mesa { padding: 10px; margin: 5px; display: inline-block; cursor: pointer; border: 1px solid #ccc; }
-    .agregado { padding: 10px; margin: 5px; display: inline-block; cursor: pointer; border: 1px solid #ccc; }
-    .libre { background: #d4ffd4; }
-    .ocupada { background: #ffd4d4; }
-    .categoria, .producto, .accion { margin: 10px 0; }
-    .hidden { display: none; }
-    button { padding: 10px; margin: 5px; cursor: pointer; }
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
 
-@page { margin: 0;
-}
+    .mesa {
+      padding: 10px;
+      margin: 5px;
+      display: inline-block;
+      cursor: pointer;
+      border: 1px solid #ccc;
+    }
 
+    .agregado {
+      padding: 10px;
+      margin: 5px;
+      display: inline-block;
+      cursor: pointer;
+      border: 1px solid #ccc;
+    }
 
+    .libre {
+      background: #d4ffd4;
+    }
 
+    .ocupada {
+      background: #ffd4d4;
+    }
 
+    .categoria,
+    .producto,
+    .accion {
+      margin: 10px 0;
+    }
 
+    .hidden {
+      display: none;
+    }
+
+    button {
+      padding: 10px;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    @page {
+      margin: 0;
+    }
   </style>
 
 
@@ -41,16 +75,17 @@
 
 
 </head>
+
 <body>
   <h2>Seleccionar Mesa</h2>
   <div id="mesas"></div>
   <div style="text-align: center; margin: 20px;">
-  <button onclick="seleccionarParaLlevar()">📦 Pedidos para llevar</button>
-</div>
+    <button onclick="seleccionarParaLlevar()">📦 Pedidos para llevar</button>
+  </div>
 
-<div style="text-align: center; margin: 10px;">
-  <button onclick="seleccionarAgregadoDeMesa()">➕ Agregado de mesa</button>
-</div>
+  <div style="text-align: center; margin: 10px;">
+    <button onclick="seleccionarAgregadoDeMesa()">➕ Agregado de mesa</button>
+  </div>
 
 
   <!-- Mostrar número de mesa seleccionada -->
@@ -76,9 +111,6 @@
     <div class="categoria"><button onclick="mostrarProductos('jarras')">Jarras</button></div>
     <div class="categoria"><button onclick="mostrarProductos('pan')">Panificados</button></div>
     <div class="categoria"><button onclick="mostrarProductos('promos')">Promos</button></div>
-    <div class="categoria"><button onclick="mostrarProductos('extra')">EXTRA</button></div>
-    
-
   </div>
 
   <div id="modificarPedido" class="hidden">
@@ -91,6 +123,9 @@
     <h2 id="tituloCategoria"></h2>
     <div id="listaProductos"></div>
     <button onclick="mostrarCategorias()">Volver a categorías</button>
+
+
+
     <button onclick="finalizarPedido()">Finalizar pedido</button>
   </div>
 
@@ -103,18 +138,18 @@
 
   <script>
     const mesas = Array.from({ length: 15 }, (_, i) => ({ numero: i + 1, ocupada: false, pedido: [] }));
-  
-
-
-
-          agregado = Array.from({ length: 1 }, (_, i) => ({ numero: i + 1, ocupada: false, pedido: [] }));
-          parallevar = Array.from({ length: 1 }, (_, i) => ({ numero: i + 1, ocupada: false, pedido: [] }));
 
 
 
 
-    const productosPorCategoria = {  'Cafeteria': [
-      { nombre: '000 Choco Nube', precio: 5300 },
+    agregado = Array.from({ length: 1 }, (_, i) => ({ numero: i + 1, ocupada: false, pedido: [] }));
+    parallevar = Array.from({ length: 1 }, (_, i) => ({ numero: i + 1, ocupada: false, pedido: [] }));
+
+
+
+
+    const productosPorCategoria = {
+      'Cafeteria': [
         { nombre: '001 Cafe suave chico', precio: 2900 },
         { nombre: '002 Cafe suave grande', precio: 4200 },
         { nombre: '003 Cafe fuerte chico', precio: 2900 },
@@ -123,21 +158,21 @@
         { nombre: '006 Cafe con leche grande', precio: 4200 },
         { nombre: '005 B Cortado chico', precio: 2900 },
         { nombre: '006 B Cortado grande', precio: 4200 },
-         { nombre: '007 Mocaccino chico', precio: 3000 },
-          { nombre: '008 Moccacino grande', precio: 3500 },
+        { nombre: '007 Mocaccino chico', precio: 3000 },
+        { nombre: '008 Moccacino grande', precio: 3500 },
         { nombre: '009 Latte chico', precio: 2900 },
-         { nombre: '010 Latte grande', precio: 3400 },
-          { nombre: '011 Choco caliente', precio: 3500 },
-           { nombre: '012 Cappucchino caramel', precio: 4000 },
-            { nombre: '013 Cappuchino chocolate', precio: 3500 },
-             { nombre: '014 Affogato', precio: 4000 },
-              { nombre: '015 Latte caramel ', precio: 4000 },
-               { nombre: '016 Nutellate', precio: 4500 },
-                { nombre: '017 KINDER', precio: 4500 },
-                { nombre: 'AGREGADO DE CREMA', precio: 500 }
+        { nombre: '010 Latte grande', precio: 3400 },
+        { nombre: '011 Choco caliente', precio: 3200 },
+        { nombre: '012 Cappucchino caramel', precio: 3600 },
+        { nombre: '013 Capuchino chocolate', precio: 3300 },
+        { nombre: '014 Affogato', precio: 4000 },
+        { nombre: '015 Latte caramel ', precio: 3600 },
+        { nombre: '016 Nutellate', precio: 4200 },
+        { nombre: '017 KINDER', precio: 4200 },
+        { nombre: 'AGREGADO DE CREMA', precio: 500 }
 
-         
-        
+
+
 
       ],
       'infusiones': [
@@ -146,8 +181,8 @@
         { nombre: '020 Té saborizado', precio: 2500 },
         { nombre: '021 Mate cocido', precio: 2000 },
         { nombre: '022 Mate cocido con leche', precio: 2500 },
-        { nombre: '023 Submarino', precio: 3500 },
-                { nombre: 'SET MATE', precio: 5000 }
+        { nombre: '023 Submarino', precio: 3300 },
+        { nombre: 'SET MATE', precio: 5000 }
       ],
       'croissants': [
         { nombre: '024 Croissant simple', precio: 1300 },
@@ -160,11 +195,11 @@
       ],
       'wafflessalados': [
         { nombre: '030 Waffle jamon y queso', precio: 4100 },
-        { nombre: '031 Waffle completo', precio: 5300 }
+        { nombre: '031 Waffle completo', precio: 5100 }
       ],
 
-          'panqueque': [
-        { nombre: '032 Untables', precio: 4000 },    
+      'panqueque': [
+        { nombre: '032 Untables', precio: 4000 },
         { nombre: '033 Panqueques con dulce de leche', precio: 1500 },
         { nombre: '034 Panqueques con frutilla y crema', precio: 4200 },
         { nombre: '035 Panqueques con Durazno y crema', precio: 3500 },
@@ -178,17 +213,17 @@
       'wafflesfruta': [
         { nombre: '041 Waffle con kiwi, frutilla, nutella y mini marroc', precio: 5800 },
         { nombre: '042 Waffle con banana, frutilla, kiwi, nutella y mini marroc', precio: 5900 },
-         { nombre: '043 Waffle con Frutilla, banana y una BOCHA DE HELADO', precio: 6300 },
-           { nombre: '044 Waffle con Frutilla, kiwi y durazno con centro de crema', precio: 6100 },
-             { nombre: '045 Waffle con Frutilla, banana y crema', precio: 5900 },
-               { nombre: '046 Waffle SIMPLE con nutella y frutilla ', precio: 4800 },
-                { nombre: '047 Waffle con chocolate, frutillas y kiwi  ', precio: 6000 },
-                 { nombre: '048 Waffle con base de nutella, banana, frutilla, dulce de leche y crema', precio: 6300 },
-                 { nombre: '049 Waffle DOBLE con base de nutella y frutillas', precio: 5500 },
-                 { nombre: 'EXTRA NUTELLA', precio: 2000 },
-                 { nombre: 'WAFFLE PERSONALIZADO', precio: 0 }
+        { nombre: '043 Waffle con Frutilla, banana y una BOCHA DE HELADO', precio: 6300 },
+        { nombre: '044 Waffle con Frutilla, kiwi y durazno con centro de crema', precio: 6100 },
+        { nombre: '045 Waffle con Frutilla, banana y crema', precio: 5900 },
+        { nombre: '046 Waffle SIMPLE con nutella y frutilla ', precio: 4800 },
+        { nombre: '047 Waffle con chocolate, frutillas y kiwi  ', precio: 6000 },
+        { nombre: '048 Waffle con base de nutella, banana, frutilla, dulce de leche y crema', precio: 6300 },
+        { nombre: '049 Waffle DOBLE con base de nutella y frutillas', precio: 5500 },
+        { nombre: 'EXTRA NUTELLA', precio: 2000 },
+        { nombre: 'WAFFLE PERSONALIZADO', precio: 0 }
       ],
-      
+
       'waffleshelado': [
         { nombre: '050 Barco', precio: 7500 },
         { nombre: '051 Waffle dos bochas de helado y marroc', precio: 6800 },
@@ -196,8 +231,10 @@
         { nombre: '053 Waffle dos bochas de helado frutillas, banana, crema y salsa', precio: 7500 },
         { nombre: '054 Waffle dos bochas de helado y oreo', precio: 6800 },
         { nombre: '055 Waffle dos bochas de helado y rocklets', precio: 6800 },
-       
-         { nombre: 'WAFFLE PERSONALIZADO', precio: 0 }
+        { nombre: 'BOCHA EXTRA', precio: 2000 },
+        { nombre: 'SALSA EXTRA', precio: 500 },
+        { nombre: 'EXTRA NUTELLA', precio: 2000 },
+        { nombre: 'WAFFLE PERSONALIZADO', precio: 0 }
       ],
       'waffleschocolate': [
         { nombre: '056 Waffle con Chocolates y bordes de crema', precio: 6500 },
@@ -205,15 +242,15 @@
         { nombre: '058 Waffle con chocolates y frutillas ', precio: 5500 },
         { nombre: '059 Waffle con chocolates y  banana ', precio: 5500 },
         { nombre: '060 Waffle con Oreo, kit kat y crema', precio: 6000 },
-         { nombre: 'WAFFLE PERSONALIZADO', precio: 0 }
+        { nombre: 'WAFFLE PERSONALIZADO', precio: 0 }
       ],
       'wafflestriples': [
-        { nombre: '061 waffle delicia', precio: 9000 },
-        { nombre: '062 waffle triple', precio: 9000 },
-         { nombre: '063 waffle torre con crema', precio: 9000 },
-          { nombre: '064 waffle torre con dulce de leche', precio: 9000 },
-           { nombre: '065 waffle golosinero', precio: 8800 },
-            { nombre: 'WAFFLE PERSONALIZADO', precio: 0 }
+        { nombre: '061 waffle delicia', precio: 8800 },
+        { nombre: '062 waffle triple', precio: 8800 },
+        { nombre: '063 waffle torre con crema', precio: 8800 },
+        { nombre: '064 waffle torre con dulce de leche', precio: 8800 },
+        { nombre: '065 waffle golosinero', precio: 8600 },
+        { nombre: 'WAFFLE PERSONALIZADO', precio: 0 }
       ],
       'vasosfrutales': [
         { nombre: '066 Yogurt con granola', precio: 4700 },
@@ -221,18 +258,17 @@
         { nombre: '068 Banana split', precio: 3300 },
         { nombre: '069 Durazno con crema', precio: 3300 },
         { nombre: '070 Vaso frutal', precio: 4100 },
-        { nombre: '071 Vaso frutal con dulce de leche', precio: 4300 },
+        { nombre: '071 Vaso frutal con dulce de leche', precio: 3900 },
         { nombre: '072 Mix frutal', precio: 4800 },
-        { nombre: '073 Vaso frutal con pulpa de frutilla', precio: 4100 },
+        { nombre: '073 Vaso frutal con pulpa defrutilla', precio: 3900 },
         { nombre: '074 Durazno con crema y oreo', precio: 3700 },
         { nombre: '075 Frutillas con crema', precio: 5300 },
         { nombre: '076 Ensalada de fruta con helado', precio: 4500 }
-        
+
       ],
 
       'Milkshakes': [
         { nombre: '077 Bombon escoces', precio: 2900 },
-        
 
         { nombre: '078 MILK Americana', precio: 4000 },
         { nombre: '079 MILK Granizado ', precio: 4000 },
@@ -240,7 +276,7 @@
         { nombre: '081 MILK Chocolate ', precio: 4000 },
         { nombre: '082 MILK Chocolate blanco', precio: 4000 },
         { nombre: '083 MILKChocolate con almendras', precio: 4000 },
-        { nombre: '084 MILK Chocolate suizo',precio: 4000 },
+        { nombre: '084 MILK Chocolate suizo', precio: 4000 },
         { nombre: '085 MILK Super chocolatoso ', precio: 4000 },
         { nombre: '086 MILK Chocolate granizado', precio: 4000 },
         { nombre: '087 MILKChocolate con rocklers', precio: 4000 },
@@ -260,29 +296,29 @@
         { nombre: '101 MILK Limon', precio: 4000 },
         { nombre: '102 MILK Menta granizada', precio: 4000 },
         { nombre: '103 MILK Tramontana', precio: 4000 },
-                { nombre: '104 Copa helada', precio: 4500 }
+        { nombre: '104 Copa helada', precio: 4500 }
       ],
       'frias': [
-        { nombre: '105 Exprimido naranja', precio: 2800 },
-        { nombre: '106 Chocolatada fria', precio: 3500 },
-        { nombre: '107 Yogurt bebible', precio: 2800 },
-        { nombre: '108 Limonada MENTA', precio: 2800 },
-        { nombre: '109 Limonada JENGIBRE Y MENTA', precio: 2800 },
+        { nombre: '105 Exprimido naranja', precio: 2700 },
+        { nombre: '106 Chocolatada fria', precio: 3200 },
+        { nombre: '107 Yogurt bebible', precio: 2700 },
+        { nombre: '108 Limonada MENTA', precio: 2700 },
+        { nombre: '109 Limonada JENGIBRE Y MENTA', precio: 2700 },
         { nombre: '110 Pomelada', precio: 3000 },
         { nombre: '111 Exprimido de mandarina', precio: 3000 },
-         { nombre: 'LATAS', precio: 2100 },
-          { nombre: 'JUGO ESTANCIA', precio: 2900 },
-           { nombre: 'AGUA VIDRIO', precio: 1500 },
-            { nombre: 'BOTELLA 500ML', precio: 2500 },
-             { nombre: 'COCA VIDRIO', precio: 2000 },
-              { nombre: 'COCA 1L', precio: 3500 }
+        { nombre: 'LATAS', precio: 2100 },
+        { nombre: 'JUGO ESTANCIA', precio: 2900 },
+        { nombre: 'AGUA VIDRIO', precio: 1500 },
+        { nombre: 'BOTELLA 500ML', precio: 2500 },
+        { nombre: 'COCA VIDRIO', precio: 2000 },
+        { nombre: 'COCA 1L', precio: 3500 }
       ],
-      
+
       'frapus': [
         { nombre: '112 Frapuccino con leche', precio: 4000 },
         { nombre: '113 Frapuccino solo', precio: 4000 },
-         { nombre: '114 Frapuccino con dulce de leche', precio: 4000 },
-          { nombre: '115 Frapuccino con chocolate', precio: 4000 }
+        { nombre: '114 Frapuccino con dulce de leche', precio: 4000 },
+        { nombre: '115 Frapuccino con chocolate', precio: 4000 }
       ],
       'smotie': [
         { nombre: '116  SMOOTH Frutilla', precio: 4000 },
@@ -303,70 +339,55 @@
         { nombre: '127 LIC Combinado', precio: 4000 }
       ],
 
-     'jarras': [
+      'jarras': [
         { nombre: '128 Jarra naranja', precio: 8500 },
         { nombre: '129 Jarra pomelo', precio: 9000 },
         { nombre: '130 Jarra Limonada', precio: 8500 }
       ],
 
       'pan': [
-        { nombre: '131 Arábe completo', precio: 5800 },
-        { nombre: '132 Arábe jamon y queso ', precio: 4800 },
-         { nombre: '133 Tostadas tomate huevo ', precio: 4000 },
-          { nombre: '134 Miga', precio: 3500 },
+        { nombre: '131 Arábe completo', precio: 5400 },
+        { nombre: '132 Arábe jamon y queso ', precio: 4500 },
+        { nombre: '133 Tostadas tomate huevo ', precio: 4000 },
+        { nombre: '134 Miga', precio: 3500 },
 
- { nombre: 'UN TRIANGULITO DE MIGA', precio: 1200 },
+        { nombre: 'UN TRIANGULITO DE MIGA', precio: 1200 },
 
-           { nombre: '135 Tostado cheddar y jamon ', precio: 2300 },
-            { nombre: '136 Tostado completo', precio: 4000 },
-             { nombre: '137 Avocado', precio: 4500 },
-              { nombre: '138 Medialuna jamon y queso', precio: 1400 },
+        { nombre: '135 Tostado cheddar y jamon ', precio: 2300 },
+        { nombre: '136 Tostado completo', precio: 3800 },
+        { nombre: '137 Avocado', precio: 4500 },
+        { nombre: '138 Medialuna jamon y queso', precio: 1400 },
 
- { nombre: 'MEDIA DOC MEDIALUNAS JyQ', precio: 8400 },
-  { nombre: 'UNA DOC MEDIALUNAS JyQ', precio: 16000 },
+        { nombre: 'MEDIA DOC MEDIALUNAS JyQ', precio: 8400 },
+        { nombre: 'UNA DOC MEDILUNAS JyQ', precio: 16000 },
 
-               { nombre: '139 LONG jamon y queso ', precio: 3500 },
-                { nombre: '140 LONG Cheddar, jamon y queso ', precio: 3900 },
-                 { nombre: '141 LONG crudo y queso', precio: 4200 },
-                  { nombre: '142 LONG COMPLETO ', precio: 4500 },
-                   { nombre: '143 Medialuna simple', precio: 600 },
+        { nombre: '139 LONG jamon y queso ', precio: 3500 },
+        { nombre: '140 LONG Cheddar, jamon y queso ', precio: 3900 },
+        { nombre: '141 LONG crudo y queso', precio: 4200 },
+        { nombre: '142 LONG COMPLETO ', precio: 4500 },
+        { nombre: '143 Medialuna simple', precio: 600 },
 
-                    { nombre: 'MEDIA DOC MEDIALUNAS SIMPLE', precio: 3600 },
-                     { nombre: 'UNA DOC MEDIALUNAS SIMPLES', precio: 6500 },
+        { nombre: 'MEDIA DOC MEDIALUNAS SIMPLE', precio: 3600 },
+        { nombre: 'UNA DOC MEDIALUNAS SIMPLES', precio: 6500 },
 
         { nombre: '144 Torta', precio: 5800 },
         { nombre: 'MINI TORTA', precio: 6000 },
         { nombre: '145 Medialuna con dulce de leche  ', precio: 1400 },
         { nombre: 'MEDIALUNA CON NUTELLA', precio: 1600 }
       ],
-      
-      
+
+
       'promos': [
         { nombre: '146 1 Café con leche + 3 medialunas', precio: 4500 },
         { nombre: '147 2 Cafés con leche + 6 medialunas', precio: 8500 },
-        { nombre: '148 1 Exprimido + 1 miga', precio: 6200 },
-        { nombre: '149 2 Exprimidos + miga', precio: 8700 },
-        { nombre: '150 1 Miga + Lata ', precio: 4500 }
+        { nombre: '148 1 Exprimido + 1 miga', precio: 6000 },
+        { nombre: '149 2 Exprimidos + miga', precio: 8400 },
+        { nombre: '150 1 Miga + Lata ', precio: 4500 },
 
       ],
 
 
-      'extra': [
-         { nombre: 'BOCHA EXTRA', precio: 2000 },
-        { nombre: 'SALSA EXTRA', precio: 1000},
-        { nombre: 'EXTRA NUTELLA', precio: 2000 },
-          { nombre: 'EXTRA SERENISIMA', precio: 2000 },
-            { nombre: 'EXTRA DULCE DE LECHE', precio: 2000 },
-              { nombre: 'EXTRA CHEDDAR', precio: 2500 },
-                { nombre: 'EXTRA CREMA', precio: 500 },
-
-
-      ],
-
-      
-
-      
-       };
+    };
 
     let mesaSeleccionada = null;
 
@@ -380,14 +401,30 @@
         div.onclick = () => seleccionarMesa(mesa.numero);
         contenedor.appendChild(div);
       });
+
     }
 
     // ✅ FUNCIÓN ACTUALIZADA
+
     function seleccionarMesa(numero) {
+      // Quitar clase 'selected' de todas las mesas
+      document.querySelectorAll('.mesa').forEach(m => m.classList.remove('selected'));
+
+      // Buscar la mesa seleccionada
       mesaSeleccionada = mesas.find(m => m.numero === numero);
+
+      // Agregar clase 'selected' a la mesa correspondiente
+      const todasLasMesas = document.querySelectorAll('.mesa');
+      const indexMesa = mesas.findIndex(m => m.numero === numero);
+      if (todasLasMesas[indexMesa]) {
+        todasLasMesas[indexMesa].classList.add('selected');
+      }
+
+      // Actualizar textos
       document.getElementById('tituloMesa').innerText = 'Mesa ' + numero;
       document.getElementById('mesaSeleccionadaTexto').innerText = 'Mesa : ' + numero;
 
+      // Mostrar u ocultar elementos según estado
       if (mesaSeleccionada.ocupada) {
         document.getElementById('accionesMesa').classList.remove('hidden');
         mostrarComanda();
@@ -404,40 +441,41 @@
 
 
 
-function seleccionarParaLlevar() {
-  mesaSeleccionada = parallevar[0];
-  document.getElementById('tituloMesa').innerText = 'Pedido para llevar';
-  document.getElementById('mesaSeleccionadaTexto').innerText = 'Pedido para llevar';
-  
-  if (mesaSeleccionada.ocupada) {
-    document.getElementById('accionesMesa').classList.remove('hidden');
-    mostrarComanda();
-    document.getElementById('categorias').classList.add('hidden');
-    document.getElementById('productos').classList.add('hidden');
-  } else {
-    document.getElementById('accionesMesa').classList.add('hidden');
-    document.getElementById('modificarPedido').classList.add('hidden');
-    mostrarCategorias();
-  }
-}
+
+    function seleccionarParaLlevar() {
+      mesaSeleccionada = parallevar[0];
+      document.getElementById('tituloMesa').innerText = 'Pedido para llevar';
+      document.getElementById('mesaSeleccionadaTexto').innerText = 'Pedido para llevar';
+
+      if (mesaSeleccionada.ocupada) {
+        document.getElementById('accionesMesa').classList.remove('hidden');
+        mostrarComanda();
+        document.getElementById('categorias').classList.add('hidden');
+        document.getElementById('productos').classList.add('hidden');
+      } else {
+        document.getElementById('accionesMesa').classList.add('hidden');
+        document.getElementById('modificarPedido').classList.add('hidden');
+        mostrarCategorias();
+      }
+    }
 
 
-function seleccionarAgregadoDeMesa() {
-  mesaSeleccionada = agregado[0];
-  document.getElementById('tituloMesa').innerText = 'Agregado de mesa';
-  document.getElementById('mesaSeleccionadaTexto').innerText = 'Agregado de mesa';
+    function seleccionarAgregadoDeMesa() {
+      mesaSeleccionada = agregado[0];
+      document.getElementById('tituloMesa').innerText = 'Agregado de mesa';
+      document.getElementById('mesaSeleccionadaTexto').innerText = 'Agregado de mesa';
 
-  if (mesaSeleccionada.ocupada) {
-    document.getElementById('accionesMesa').classList.remove('hidden');
-    mostrarComanda();
-    document.getElementById('categorias').classList.add('hidden');
-    document.getElementById('productos').classList.add('hidden');
-  } else {
-    document.getElementById('accionesMesa').classList.add('hidden');
-    document.getElementById('modificarPedido').classList.add('hidden');
-    mostrarCategorias();
-  }
-}
+      if (mesaSeleccionada.ocupada) {
+        document.getElementById('accionesMesa').classList.remove('hidden');
+        mostrarComanda();
+        document.getElementById('categorias').classList.add('hidden');
+        document.getElementById('productos').classList.add('hidden');
+      } else {
+        document.getElementById('accionesMesa').classList.add('hidden');
+        document.getElementById('modificarPedido').classList.add('hidden');
+        mostrarCategorias();
+      }
+    }
 
 
 
@@ -470,9 +508,9 @@ function seleccionarAgregadoDeMesa() {
       document.getElementById('categorias').classList.add('hidden');
 
 
-       document.getElementById('productos').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('productos').scrollIntoView({ behavior: 'smooth' });
 
-       
+
     }
 
     function agregarProducto(producto) {
@@ -500,27 +538,49 @@ function seleccionarAgregadoDeMesa() {
 
     function finalizarPedido() {
       mesaSeleccionada.ocupada = true;
-      renderMesas();
-      alert('Pedido guardado para la mesa ' + mesaSeleccionada.numero);
-      document.getElementById('categorias').classList.add('hidden');
-      document.getElementById('productos').classList.add('hidden');
+
+      // Preparar datos para Firestore
+      const pedidoData = {
+        mesa: `Mesa ${mesaSeleccionada.numero}`,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        items: mesaSeleccionada.pedido.map(p => ({
+          nombre: p.nombre,
+          precio: p.precio,
+          aclaracion: p.aclaracion || null
+        }))
+      };
+
+      // Subir a Firestore
+      db.collection("pedidos")
+        .add(pedidoData)
+        .then(() => {
+          alert('Pedido guardado para la mesa ' + mesaSeleccionada.numero);
+          renderMesas();
+          document.getElementById('categorias').classList.add('hidden');
+          document.getElementById('productos').classList.add('hidden');
+        })
+        .catch(error => {
+          console.error("Error al guardar pedido:", error);
+          alert("Error al guardar pedido. Ver consola.");
+        });
     }
+
 
     function generarTicket() {
       let total = 0;
-    let titulo;
-if (mesas.includes(mesaSeleccionada)) {
-  titulo = `Mesa ${mesaSeleccionada.numero}`;
-} else if (mesaSeleccionada === parallevar[0]) {
-  titulo = 'Pedido para llevar';
-} else if (mesaSeleccionada === agregado[0]) {
-  titulo = 'Agregado de mesa';
-}
-let detalle = `${titulo}\n-------------------------\n`;
+      let titulo;
+      if (mesas.includes(mesaSeleccionada)) {
+        titulo = `Mesa ${mesaSeleccionada.numero}`;
+      } else if (mesaSeleccionada === parallevar[0]) {
+        titulo = 'Pedido para llevar';
+      } else if (mesaSeleccionada === agregado[0]) {
+        titulo = 'Agregado de mesa';
+      }
+      let detalle = `${titulo}\n-------------------------\n`;
       mesaSeleccionada.pedido.forEach(p => {
-       detalle += `${p.nombre}\n`; // primer renglón: nombre
-    if (p.aclaracion) detalle += `  (${p.aclaracion})\n`; // segundo renglón: aclaración
-    detalle += `  $${p.precio}\n\n`; // tercer renglón: precio
+        detalle += `${p.nombre}\n`; // primer renglón: nombre
+        if (p.aclaracion) detalle += `  (${p.aclaracion})\n`; // segundo renglón: aclaración
+        detalle += `  $${p.precio}\n\n`; // tercer renglón: precio
         total += p.precio;
       });
       detalle += `-------------------------\nTotal: $${total}`;
@@ -535,24 +595,24 @@ let detalle = `${titulo}\n-------------------------\n`;
 
 
 
-    
-    function generarTicket2() {
-  let titulo = mesas.includes(mesaSeleccionada) ? `Mesa ${mesaSeleccionada.numero}` : 
-               (mesaSeleccionada === parallevar[0] ? 'Pedido para llevar' : 'Agregado de mesa');
-  let detalle = `${titulo}\n-------------------------\n`;
-  
-  mesaSeleccionada.pedido.forEach(p => {
-    detalle += `${p.nombre}\n`;
-    if (p.aclaracion) detalle += `  (${p.aclaracion})\n`;
-    detalle += `\n`; // salto de línea adicional
-  });
 
-  return detalle;
-}
+    function generarTicket2() {
+      let titulo = mesas.includes(mesaSeleccionada) ? `Mesa ${mesaSeleccionada.numero}` :
+        (mesaSeleccionada === parallevar[0] ? 'Pedido para llevar' : 'Agregado de mesa');
+      let detalle = `${titulo}\n-------------------------\n`;
+
+      mesaSeleccionada.pedido.forEach(p => {
+        detalle += `${p.nombre}\n`;
+        if (p.aclaracion) detalle += `  (${p.aclaracion})\n`;
+        detalle += `\n`; // salto de línea adicional
+      });
+
+      return detalle;
+    }
 
     function imprimirTicket() {
       let contenido = generarTicket();
-      let ventana = window.open( 'width=500,height=500');
+      let ventana = window.open('width=500,height=500');
       ventana.document.write(`<pre>${contenido}</pre>`);
       ventana.print();
     }
@@ -572,14 +632,73 @@ let detalle = `${titulo}\n-------------------------\n`;
       document.getElementById('accionesMesa').classList.add('hidden');
     }
 
+    // NUEVO
+
+    function enviarPedidoAFirebase(mesa) {
+      if (!mesa || mesa.pedido.length === 0) {
+        alert('No hay pedido para enviar.');
+        return;
+      }
+
+      const pedido = {
+        mesa: mesa.id,
+        productos: mesa.pedido.map(p => ({
+          nombre: p.nombre,
+          precio: p.precio,
+          aclaracion: p.aclaracion || ''
+        })),
+        total: mesa.pedido.reduce((sum, p) => sum + p.precio, 0),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        estado: "pendiente"
+      };
+
+      db.collection('pedidos')
+        .add(pedido)
+        .then(docRef => {
+          console.log("Pedido enviado con ID:", docRef.id);
+          alert('Pedido enviado exitosamente.');
+
+          // Opcional: limpiar comanda
+          mesa.pedido = [];
+          mostrarComanda();
+        })
+        .catch(error => {
+          console.error("Error al enviar pedido:", error);
+          alert('Error al enviar pedido.');
+        });
+    }
 
 
 
-  
 
 
 
- 
+
+    // nuevo
+    function cargarPedidosDesdeFirestore() {
+      db.collection("pedidos")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+
+            // Obtener el número de mesa (ej: "Mesa 3" → 3)
+            const numeroMesa = parseInt(data.mesa.replace("Mesa ", ""));
+            const mesa = mesas.find(m => m.numero === numeroMesa);
+
+            if (mesa) {
+              mesa.ocupada = true;
+              mesa.pedido = data.items || [];
+            }
+          });
+
+          renderMesas(); // una vez cargados los pedidos, mostrar mesas
+        })
+        .catch((error) => {
+          console.error("Error al cargar pedidos:", error);
+        });
+    }
+
 
 
 
@@ -588,7 +707,10 @@ let detalle = `${titulo}\n-------------------------\n`;
 
 
     // Iniciar app
-    renderMesas();
-  </script>
+    //renderMesas();
+    </script>
+ 
+
 </body>
+
 </html>
